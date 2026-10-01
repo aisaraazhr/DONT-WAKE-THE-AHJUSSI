@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>DON'T WAKE HIM</title>
+
+    <style>
+        body{
+            background-color: #eeeeee;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        #intro{
+            margin-top: 200px;
+        }
+
+        #enter{
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #main{
+            display: none;
+        }
+
+        #man{
+            width: 400px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        #dead{
+            display: none;
+            margin-top: 200px;
+        }
+
+        #dead h1{
+            font-size: 70px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- INTRO -->
+    <div id="intro">
+
+        <h1>쉿...</h1>
+
+        <p>
+            아저씨가 거실에서 자고 있어요.<br>
+            조용히 들어가세요.
+        </p>
+
+        <button id="enter">
+            조용히 들어가기
+        </button>
+
+    </div>
+
+
+    <!-- MAIN -->
+    <div id="main">
+
+        <h1>DON'T WAKE HIM</h1>
+
+        <p id="text">
+            아저씨가 자고 있습니다.<br>
+            절대 깨우지 마세요.
+        </p>
+
+        <img src="sleep.jpg" id="man">
+
+    </div>
+
+
+    <!-- YOU DIED -->
+    <div id="dead">
+
+        <h1>YOU DIED</h1>
+
+        <p>
+            아저씨를 너무 많이 깨웠습니다.
+        </p>
+
+    </div>
+
+
+    <!-- AUDIO -->
+    <audio src="snore.mp3" id="snore" loop></audio>
+    <audio src="wake.mp3" id="wake"></audio>
+    <audio src="awake2.mp3" id="awake2sound"></audio>
+    <audio src="awake3.mp3" id="awake3sound"></audio>
+    <audio src="angry.mp3" id="angry"></audio>
+
+
+    <script>
+
+        let count = 0;
+
+
+        // ENTER THE ROOM
+        enter.onclick = function(){
+
+            intro.style.display = "none";
+            main.style.display = "block";
+
+            snore.play();
+
+        }
+
+
+        // CLICK THE AJUSSHI
+        man.onclick = function(){
+
+            count = count + 1;
+
+
+            // FIRST CLICK
+            if(count == 1){
+
+                snore.pause();
+                snore.currentTime = 0;
+
+                wake.currentTime = 3;
+                wake.play();
+
+                man.src = "awake.jpg";
+
+                text.innerHTML = "...왜 깨웠어요?";
+
+                document.body.style.backgroundColor = "#ffb3b3";
+
+            }
+
+
+            // SECOND CLICK
+            else if(count == 2){
+
+                wake.pause();
+                wake.currentTime = 0;
+
+                awake2sound.currentTime = 0;
+                awake2sound.play();
+
+                man.src = "awake2.jpg";
+
+                text.innerHTML = "또 깨웠어요...?";
+
+                document.body.style.backgroundColor = "#ff7a7a";
+
+            }
+
+
+            // THIRD CLICK
+            else if(count == 3){
+
+                awake2sound.pause();
+                awake2sound.currentTime = 0;
+
+                awake3sound.currentTime = 0;
+                awake3sound.play();
+
+                man.src = "awake3.jpg";
+
+                text.innerHTML = "진짜 그만하세요.";
+
+                document.body.style.backgroundColor = "#ff3b3b";
+                document.body.style.color = "white";
+
+            }
+
+
+            // FOURTH CLICK
+            else if(count == 4){
+
+                awake3sound.pause();
+                awake3sound.currentTime = 0;
+
+                man.src = "angry.gif";
+
+                text.innerHTML = "!!!!";
+
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = "red";
+
+                angry.currentTime = 2;
+                angry.play();
+
+
+                // YOU DIED after 3.5 seconds
+                setTimeout(function(){
+
+                    main.style.display = "none";
+                    dead.style.display = "block";
+
+                }, 3500);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
